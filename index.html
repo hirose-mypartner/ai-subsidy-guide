@@ -272,6 +272,37 @@ footer a:hover { color:#7dd3fc; }
 
 @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
 
+.notice-tab {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  width:100%;
+  background:#fff;
+  border:2px solid #fca5a5;
+  border-left:5px solid #dc2626;
+  border-radius:12px;
+  padding:16px 20px;
+  margin-bottom:40px;
+  font-family:'Noto Sans JP',sans-serif;
+  font-size:14px;
+  font-weight:700;
+  color:#991b1b;
+  cursor:pointer;
+  text-align:left;
+  box-shadow:0 2px 8px rgba(220,38,38,.08);
+  transition:background .2s, box-shadow .2s;
+}
+.notice-tab:hover {
+  background:#fef2f2;
+  box-shadow:0 4px 16px rgba(220,38,38,.14);
+}
+.notice-tab::after {
+  content:'→';
+  margin-left:auto;
+  font-size:16px;
+  opacity:.6;
+}
+
 @media(max-width:600px){
   main{padding:32px 16px 60px;}
   .feature-grid{grid-template-columns:1fr;}
@@ -427,6 +458,10 @@ footer a:hover { color:#7dd3fc; }
       <p>業務効率化やDX推進に向けた <strong>ソフトウェア・クラウドサービス等のITツール導入費用</strong> を国が一部補助する制度です。下記の書類準備と、オンラインでの交付申請手続きが必要となります。</p>
     </div>
   </div>
+
+  <button class="notice-tab" onclick="document.getElementById('warningModal').classList.remove('hidden')">
+    ⚠️ 不正に関する重要な注意喚起を確認する
+  </button>
 
   <div class="section-head"><div class="section-dot"></div><h2>申請手続きの流れ</h2></div>
   <div class="steps">
