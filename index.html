@@ -1212,13 +1212,43 @@ function closeModal() {
 window.addEventListener('DOMContentLoaded', function() {
   if (!localStorage.getItem('warningAgreed')) {
     document.getElementById('warningModal').classList.remove('hidden');
-  }
-  // スクロール検知でヒント非表示
-  var body = document.getElementById('modalBody');
-  var hint = document.getElementById('scrollHint');
-  if (body && hint) {
+
+    var btn = document.getElementById('agreeBtn');
+    var scrolled = false;
+    var timerDone = false;
+    var seconds = 5;
+
+    btn.disabled = true;
+    btn.style.opacity = '0.4';
+    btn.style.cursor = 'not-allowed';
+
+    function tryEnable() {
+      if (scrolled && timerDone) {
+        btn.disabled = false;
+        btn.style.opacity = '1';
+        btn.style.cursor = 'pointer';
+      }
+    }
+
+    // 5秒カウントダウン
+    var timer = setInterval(function() {
+      seconds--;
+      if (seconds <= 0) {
+        clearInterval(timer);
+        timerDone = true;
+        tryEnable();
+      }
+    }, 1000);
+
+    // 一番下までスクロール検知
+    var body = document.getElementById('modalBody');
     body.addEventListener('scroll', function() {
-      if (body.scrollTop > 40) hint.style.opacity = '0';
+      if (body.scrollTop + body.clientHeight >= body.scrollHeight - 5) {
+        scrolled = true;
+        tryEnable();
+      }
+      var hint = document.getElementById('scrollHint');
+      if (hint && body.scrollTop > 40) hint.style.opacity = '0';
     });
   }
 });
